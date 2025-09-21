@@ -5,50 +5,332 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Nalú - Ropa Deportiva</title>
   <style>
+    :root {
+      --rosa-nalu: #ff69b4;
+      --rosa-nalu-oscuro: #e3529e;
+      --gris-fondo: #f5f5f5;
+      --gris-texto: #333333;
+      --blanco: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       font-family: 'Segoe UI', sans-serif;
       margin: 0;
-      background-color: #f5f5f5;
+      background-color: var(--gris-fondo);
+      color: var(--gris-texto);
+    }
+
+    .site-header {
+      background: linear-gradient(90deg, var(--rosa-nalu) 0%, var(--rosa-nalu-oscuro) 100%);
+      color: var(--blanco);
+      padding: 1rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .branding {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .branding h1 {
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      margin: 0;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .branding p {
+      margin: 0;
+      font-size: 0.95rem;
+      opacity: 0.85;
+    }
+
+    .menu-principal {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .menu-principal a {
+      text-decoration: none;
+      color: var(--blanco);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      position: relative;
+      padding-bottom: 0.25rem;
+    }
+
+    .menu-principal a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.6);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    .menu-principal a:hover::after,
+    .menu-principal a:focus-visible::after {
+      transform: scaleX(1);
+    }
+
+    .acciones-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .icono-boton {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--blanco);
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .icono-boton:hover,
+    .icono-boton:focus-visible {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-1px);
+    }
+
+    .icono-boton svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    main {
+      padding: 3rem 1.5rem 4rem;
       text-align: center;
     }
-    header {
-      background-color: #ff69b4;
-      color: white;
-      padding: 1rem;
+
+    .hero {
+      max-width: 960px;
+      margin: 0 auto 3rem;
+      display: grid;
+      gap: 2rem;
+      align-items: center;
     }
-    .producto {
+
+    .hero img {
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+      object-fit: cover;
+    }
+
+    .hero .contenido {
+      text-align: left;
+    }
+
+    .hero h2 {
+      font-size: clamp(2.2rem, 4vw, 3rem);
+      margin: 0 0 1rem;
+      color: var(--rosa-nalu-oscuro);
+    }
+
+    .hero p {
+      margin: 0 0 1.5rem;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .hero .boton {
       display: inline-block;
-      background: white;
-      border-radius: 10px;
-      margin: 1rem;
-      width: 250px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      overflow: hidden;
+      background: var(--rosa-nalu);
+      color: var(--blanco);
+      padding: 0.85rem 2.4rem;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 10px 25px rgba(255, 105, 180, 0.35);
     }
+
+    .hero .boton:hover,
+    .hero .boton:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(255, 105, 180, 0.45);
+    }
+
+    .productos {
+      display: grid;
+      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .producto {
+      background: var(--blanco);
+      border-radius: 16px;
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .producto:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 30px rgba(0, 0, 0, 0.18);
+    }
+
     .producto img {
       width: 100%;
       height: auto;
     }
-    .producto .descripcion {
-      padding: 1rem;
+
+    .descripcion {
+      padding: 1.5rem;
+      text-align: left;
+    }
+
+    .descripcion h3 {
+      margin: 0 0 0.75rem;
+      font-size: 1.2rem;
+      color: var(--rosa-nalu-oscuro);
+    }
+
+    .descripcion p {
+      margin: 0 0 1.25rem;
+      line-height: 1.6;
+    }
+
+    .descripcion .precio {
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    @media (max-width: 640px) {
+      .menu-principal {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .acciones-header {
+        width: 100%;
+        justify-content: flex-end;
+      }
+    }
+
+    @media (min-width: 920px) {
+      .hero {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Nalú</h1>
-    <p>Ropa deportiva para mujer</p>
+  <header class="site-header">
+    <div class="branding">
+      <h1>Nalú</h1>
+      <p>Ropa deportiva para mujer</p>
+    </div>
+    <nav class="menu-principal" aria-label="Menú principal">
+      <a href="#inicio">Inicio</a>
+      <a href="#colecciones">Colecciones</a>
+      <a href="#novedades">Novedades</a>
+      <a href="#ofertas">Ofertas</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <div class="acciones-header" role="group" aria-label="Acciones de usuario">
+      <a class="icono-boton" href="#buscar" aria-label="Buscar">
+        <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+          <path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.71.71l.27.28v.79l5 5 1.5-1.5-5-5zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9z"></path>
+        </svg>
+        <span class="visually-hidden">Buscar</span>
+      </a>
+      <a class="icono-boton" href="#mi-cuenta" aria-label="Cuenta">
+        <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+          <path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-3.33 0-10 1.67-10 5v3h20v-3c0-3.33-6.67-5-10-5z"></path>
+        </svg>
+        <span class="visually-hidden">Cuenta</span>
+      </a>
+      <a class="icono-boton" href="#carrito" aria-label="Carrito">
+        <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+          <path d="M7 4h-2l-1 2v2h2l3.6 7.59-1.35 2.44a1 1 0 0 0 .9 1.49h12v-2h-10.42l.1-.18L18 9H7.42l-.7-1.4L7 6h12v-2H7zm-1 16a2 2 0 1 0 2 2 2 2 0 0 0-2-2zm10 0a2 2 0 1 0 2 2 2 2 0 0 0-2-2z"></path>
+        </svg>
+        <span class="visually-hidden">Carrito</span>
+      </a>
+    </div>
   </header>
 
-  <section>
-    <div class="producto">
-      <img src="modelo1.png" alt="Conjunto Fucsia Nalú">
-      <div class="descripcion">
-        <h3>Conjunto Fucsia</h3>
-        <p>Top + Leggins compresión alta</p>
+  <main>
+    <section class="hero" id="inicio">
+      <div class="contenido">
+        <h2>Muévete con estilo</h2>
+        <p>Diseñamos prendas deportivas que se ajustan a tu ritmo. Colores vibrantes, telas cómodas y soporte donde lo necesitas.</p>
+        <a class="boton" href="#colecciones">Ver colección</a>
       </div>
-    </div>
-  </section>
+      <img src="modelo1.png" alt="Atleta entrenando con ropa Nalú" />
+    </section>
+
+    <section class="productos" id="colecciones">
+      <article class="producto">
+        <img src="modelo1.png" alt="Conjunto fucsia Nalú" />
+        <div class="descripcion">
+          <h3>Conjunto Fucsia</h3>
+          <p>Top + leggings de compresión alta para máximo rendimiento.</p>
+          <span class="precio">$1,299 MXN</span>
+        </div>
+      </article>
+
+      <article class="producto">
+        <img src="modelo1.png" alt="Leggings negros con paneles" />
+        <div class="descripcion">
+          <h3>Leggings Black Power</h3>
+          <p>Soporte anatómico con paneles de malla para ventilación.</p>
+          <span class="precio">$899 MXN</span>
+        </div>
+      </article>
+
+      <article class="producto">
+        <img src="modelo1.png" alt="Top deportivo azul" />
+        <div class="descripcion">
+          <h3>Top Sky Racer</h3>
+          <p>Espalda cruzada y soporte medio para entrenamientos intensos.</p>
+          <span class="precio">$649 MXN</span>
+        </div>
+      </article>
+    </section>
+  </main>
 </body>
 </html>
-
